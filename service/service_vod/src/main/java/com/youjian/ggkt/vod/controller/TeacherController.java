@@ -93,5 +93,8 @@ public class TeacherController {
     public Result batchDelete(@RequestBody List<Long> idList) {
         return teacherService.removeByIds(idList) ? Result.ok() : Result.fail();
     }
+
+    // 测试git
+
 }
 

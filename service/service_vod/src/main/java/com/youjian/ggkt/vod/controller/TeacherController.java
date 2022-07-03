@@ -94,7 +94,5 @@ public class TeacherController {
         return teacherService.removeByIds(idList) ? Result.ok() : Result.fail();
     }
 
-    // 测试git
-
 }
 

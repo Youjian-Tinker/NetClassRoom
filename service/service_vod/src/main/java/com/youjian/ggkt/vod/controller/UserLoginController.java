@@ -19,7 +19,7 @@ public class UserLoginController {
     public Result login() {
         Map<String, Object> map = new HashMap<>();
         map.put("token", "admin-token");
-        return Result.ok(map).code(20000);
+        return Result.ok(map);
     }
 
     @ApiOperation("info")
@@ -29,7 +29,7 @@ public class UserLoginController {
         map.put("roles","[admin]");
         map.put("name","admin");
         map.put("avatar","https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg");
-        return Result.ok(map).code(20000);
+        return Result.ok(map);
     }
 
 

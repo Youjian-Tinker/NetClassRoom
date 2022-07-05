@@ -18,7 +18,7 @@ public class Result<T> {
 
     public static <T> Result<T> ok(T date) {
         Result<T> result = new Result<>();
-        result.setCode(200);
+        result.setCode(20000);
         result.setMessage("成功");
         if (date != null) {
             result.setData(date);
@@ -28,7 +28,7 @@ public class Result<T> {
 
     public static <T> Result<T> fail() {
         Result<T> result = new Result<>();
-        result.setCode(201);
+        result.setCode(20001);
         result.setMessage("失败");
         return result;
     }
@@ -41,7 +41,7 @@ public class Result<T> {
 
     public static <T> Result<T> fail(String message, T date) {
         Result<T> result = new Result<>();
-        result.setCode(201);
+        result.setCode(20001);
         result.setMessage(message);
         if (date != null) {
             result.setData(date);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@Api("登陆接口")
+@Api(tags = "登陆接口")
 @RestController
 @CrossOrigin
 @RequestMapping("/vod/user")

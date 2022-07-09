@@ -30,8 +30,8 @@ public class ConstantPropertiesUtil implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         END_POINT = region;
-        ACCESS_KEY_ID = secretId;
-        ACCESS_KEY_SECRET = secretKey;
+        ACCESS_KEY_ID = secretId.replaceAll("-", "");
+        ACCESS_KEY_SECRET = secretKey.replaceAll("-", "");
         BUCKET_NAME = bucketName;
     }
 }

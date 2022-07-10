@@ -9,8 +9,7 @@ import com.youjian.ggkt.vo.vod.SubjectEeVo;
 import com.youjian.ggkt.vod.listener.SubjectImportListener;
 import com.youjian.ggkt.vod.mapper.SubjectMapper;
 import com.youjian.ggkt.vod.service.SubjectService;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +32,8 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
 
     @Autowired
     private SubjectImportListener subjectImportListener;
+    @Autowired
+    private MapperFacade mapperFacade;
 
     @Override
     public List<Subject> selectSubjectList(Long id) {
@@ -64,8 +65,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
             // 查询数据
             List<Subject> subjectlist = baseMapper.selectList(null);
             // 转成vo
-            MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-            List<SubjectEeVo> list = mapperFactory.getMapperFacade().mapAsList(subjectlist, SubjectEeVo.class);
+            List<SubjectEeVo> list = mapperFacade.mapAsList(subjectlist, SubjectEeVo.class);
             EasyExcel.write(response.getOutputStream(), SubjectEeVo.class)
                     .sheet("课程分类")
                     .doWrite(list);

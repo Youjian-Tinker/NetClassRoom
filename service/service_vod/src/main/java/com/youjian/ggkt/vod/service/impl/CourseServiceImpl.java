@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.youjian.ggkt.model.vod.Course;
 import com.youjian.ggkt.model.vod.Subject;
 import com.youjian.ggkt.model.vod.Teacher;
+import com.youjian.ggkt.vo.vod.CourseFormVo;
 import com.youjian.ggkt.vo.vod.CourseQueryVo;
 import com.youjian.ggkt.vod.mapper.CourseMapper;
+import com.youjian.ggkt.vod.service.CourseDescriptionService;
 import com.youjian.ggkt.vod.service.CourseService;
 import com.youjian.ggkt.vod.service.SubjectService;
 import com.youjian.ggkt.vod.service.TeacherService;
+import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private TeacherService teacherService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private CourseDescriptionService courseDescriptionService;
+    @Autowired
+    private MapperFacade mapperFacade;
 
     @Override
     public Map<String, Object> findPageCourse(Page<Course> pageParam, CourseQueryVo vo) {

@@ -3,21 +3,19 @@ package com.youjian.ggkt.vod.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.youjian.ggkt.model.vod.Course;
-import com.youjian.ggkt.model.vod.Subject;
-import com.youjian.ggkt.model.vod.Teacher;
+import com.youjian.ggkt.model.vod.*;
 import com.youjian.ggkt.vo.vod.CourseFormVo;
+import com.youjian.ggkt.vo.vod.CoursePublishVo;
 import com.youjian.ggkt.vo.vod.CourseQueryVo;
 import com.youjian.ggkt.vod.mapper.CourseMapper;
-import com.youjian.ggkt.vod.service.CourseDescriptionService;
-import com.youjian.ggkt.vod.service.CourseService;
-import com.youjian.ggkt.vod.service.SubjectService;
-import com.youjian.ggkt.vod.service.TeacherService;
+import com.youjian.ggkt.vod.service.*;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +39,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     private CourseDescriptionService courseDescriptionService;
     @Autowired
     private MapperFacade mapperFacade;
+    @Autowired
+    private VideoService videoService;
+    @Autowired
+    private ChapterService chapterService;
 
     @Override
     public Map<String, Object> findPageCourse(Page<Course> pageParam, CourseQueryVo vo) {
@@ -86,5 +88,75 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         if (subject2 != null) {
             course.getParam().put("subjectTitle", subject2.getTitle());
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long saveCourseInfo(CourseFormVo vo) {
+        Course course = mapperFacade.map(vo, Course.class);
+        baseMapper.insert(course);
+
+        CourseDescription description = new CourseDescription();
+        description.setCourseId(course.getId());
+        description.setId(course.getId());
+        description.setDescription(vo.getDescription());
+        courseDescriptionService.save(description);
+        return course.getId();
+    }
+
+    @Override
+    public CourseFormVo getCourseInfoById(Long id) {
+        Course course = baseMapper.selectById(id);
+        if (course == null) {
+            return null;
+        }
+        CourseDescription description = courseDescriptionService.getById(id);
+        CourseFormVo courseFormVo = mapperFacade.map(course, CourseFormVo.class);
+        if (description != null) {
+            courseFormVo.setDescription(description.getDescription());
+        }
+        return courseFormVo;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCourseInfo(CourseFormVo vo) {
+        Course course = mapperFacade.map(vo, Course.class);
+        if (course.getId() == null) {
+            return;
+        }
+        int i = baseMapper.updateById(course);
+        CourseDescription description = new CourseDescription();
+        description.setId(course.getId());
+        description.setDescription(vo.getDescription());
+        courseDescriptionService.updateById(description);
+    }
+
+    @Override
+    public CoursePublishVo getCoursePublishVo(Long id) {
+        return baseMapper.selectCoursePublishVoById(id);
+    }
+
+    @Override
+    public void publishCourse(Long id) {
+        Course course = baseMapper.selectById(id);
+        course.setStatus(1);
+        course.setPublishTime(new Date());
+        baseMapper.updateById(course);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeCourse(Long id) {
+        QueryWrapper<Video> videoQueryWrapper = new QueryWrapper<>();
+        videoQueryWrapper.eq("course_id", id);
+        videoService.remove(videoQueryWrapper);
+
+        QueryWrapper<Chapter> chapterQueryWrapper = new QueryWrapper<>();
+        chapterQueryWrapper.eq("course_id", id);
+        chapterService.remove(chapterQueryWrapper);
+
+        courseDescriptionService.removeById(id);
+        baseMapper.deleteById(id);
     }
 }

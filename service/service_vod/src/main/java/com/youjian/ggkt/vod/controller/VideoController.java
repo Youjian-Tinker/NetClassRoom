@@ -1,9 +1,13 @@
 package com.youjian.ggkt.vod.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.youjian.ggkt.model.vod.Video;
+import com.youjian.ggkt.result.Result;
+import com.youjian.ggkt.vod.service.VideoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -13,9 +17,40 @@ import org.springframework.web.bind.annotation.RestController;
  * @author youjian
  * @since 2022-07-09
  */
+@Api(tags = "小节")
 @RestController
+@CrossOrigin
 @RequestMapping("/vod/video")
 public class VideoController {
 
+    @Autowired
+    private VideoService videoService;
+
+    @ApiOperation("根据id查询")
+    @GetMapping("get/{id}")
+    public Result getById(@PathVariable Long id) {
+        return Result.ok(videoService.getById(id));
+    }
+
+    @ApiOperation("新增")
+    @PostMapping("save")
+    public Result save(@RequestBody Video video) {
+        videoService.save(video);
+        return Result.ok();
+    }
+
+    @ApiOperation("修改")
+    @PostMapping("update")
+    public Result update(@RequestBody Video video) {
+        videoService.updateById(video);
+        return Result.ok();
+    }
+
+    @ApiOperation("删除")
+    @DeleteMapping("remove/{id}")
+    public Result remove(@PathVariable Long id) {
+        videoService.removeById(id);
+        return Result.ok();
+    }
 }
 

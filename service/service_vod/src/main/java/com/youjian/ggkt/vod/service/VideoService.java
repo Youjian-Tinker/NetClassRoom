@@ -13,4 +13,7 @@ import com.youjian.ggkt.model.vod.Video;
  */
 public interface VideoService extends IService<Video> {
 
+    void removeVideoById(Long id);
+
+    void removeVideoByCourseId(Long id);
 }

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "小节")
 @RestController
-@CrossOrigin
 @RequestMapping("/vod/video")
 public class VideoController {
 

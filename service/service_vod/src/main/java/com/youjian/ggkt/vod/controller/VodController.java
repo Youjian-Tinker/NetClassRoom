@@ -15,7 +15,6 @@ import java.util.Random;
 
 @Api(tags = "腾讯云点播")
 @RestController
-@CrossOrigin
 @RequestMapping("/vod")
 public class VodController {
 

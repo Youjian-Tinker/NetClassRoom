@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Api(tags = "登陆接口")
 @RestController
-@CrossOrigin
 @RequestMapping("/vod/user")
 public class UserLoginController {
 

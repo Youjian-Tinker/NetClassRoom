@@ -20,7 +20,6 @@ import java.util.Map;
  */
 @Api(tags = "课程统计")
 @RestController
-@CrossOrigin
 @RequestMapping("/vod/videoVisitor")
 public class VideoVisitorController {
 

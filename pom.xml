@@ -16,6 +16,7 @@
         <module>model</module>
         <module>service</module>
         <module>common</module>
+        <module>service_gateway</module>
     </modules>
     <name>ggkt_parent</name>
 

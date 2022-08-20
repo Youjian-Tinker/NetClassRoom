@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2022-08-08
  */
 @RestController
-@RequestMapping("/wechat/menu")
+@RequestMapping("/admin/wechat/menu")
 public class MenuController {
 
     @Autowired

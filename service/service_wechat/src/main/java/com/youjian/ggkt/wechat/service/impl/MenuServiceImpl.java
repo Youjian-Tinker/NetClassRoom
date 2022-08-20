@@ -57,7 +57,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                 view.put("type", twoMenuVo.getType());
                 if(twoMenuVo.getType().equals("view")) {
                     view.put("name", twoMenuVo.getName());
-                    view.put("url", "http://ggkt2.vipgz1.91tunnel.com/#"
+                    view.put("url", "http://tinker2.gz2vip.91tunnel.com/#"
                             +twoMenuVo.getUrl());
                 } else {
                     view.put("name", twoMenuVo.getName());

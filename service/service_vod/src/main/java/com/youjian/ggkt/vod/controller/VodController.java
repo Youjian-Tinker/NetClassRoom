@@ -15,7 +15,7 @@ import java.util.Random;
 
 @Api(tags = "腾讯云点播")
 @RestController
-@RequestMapping("/vod")
+@RequestMapping("/admin/vod")
 public class VodController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class VodController {
 
     @ApiOperation("上传视频")
     @PostMapping("upload")
-    public Result upload() {
+    public Result<String> upload() {
         String fileId = vodService.uploadVideo();
         return Result.ok(fileId);
     }

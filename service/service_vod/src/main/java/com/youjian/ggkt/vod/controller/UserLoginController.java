@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Api(tags = "登陆接口")
 @RestController
-@RequestMapping("/vod/user")
+@RequestMapping("/admin/vod/user")
 public class UserLoginController {
 
     @ApiOperation("login")

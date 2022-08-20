@@ -32,4 +32,8 @@ public interface CourseService extends IService<Course> {
     void publishCourse(Long id);
 
     void removeCourse(Long id);
+
+    Map<String, Object> findPage(Page<Course> pageParam, CourseQueryVo courseQueryVo);
+
+    Map<String, Object> getInfoById(Long courseId);
 }

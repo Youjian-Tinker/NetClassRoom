@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Api(tags = "课程")
 @RestController
-@RequestMapping("/vod/course")
+@RequestMapping("/admin/vod/course")
 public class CourseController {
     @Autowired
     private CourseService courseService;

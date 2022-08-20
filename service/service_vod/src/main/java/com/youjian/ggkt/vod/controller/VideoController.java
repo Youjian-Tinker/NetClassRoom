@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(tags = "小节")
 @RestController
-@RequestMapping("/vod/video")
+@RequestMapping("/admin/vod/video")
 public class VideoController {
 
     @Autowired

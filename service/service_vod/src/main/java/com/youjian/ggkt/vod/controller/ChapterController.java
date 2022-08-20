@@ -23,7 +23,7 @@ import java.util.List;
 @Api(tags = "章节")
 @RestController
 //@CrossOrigin
-@RequestMapping("/vod/chapter")
+@RequestMapping("/admin/vod/chapter")
 public class ChapterController {
 
     @Autowired

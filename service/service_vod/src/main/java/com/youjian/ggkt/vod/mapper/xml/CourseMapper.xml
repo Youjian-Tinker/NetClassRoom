@@ -3,21 +3,48 @@
 <mapper namespace="com.youjian.ggkt.vod.mapper.CourseMapper">
 
     <select id="selectCoursePublishVoById" resultType="com.youjian.ggkt.vo.vod.CoursePublishVo">
-        select
+        SELECT
         c.id,
         c.title,
         c.cover,
-        c.lesson_num,
+        c.lesson_num AS lessonNum,
         c.price,
-        t.name teacherName,
-        s1.title subjectParentTitle,
-        s2.title subjectTitle
-        from course c
-        left outer join teacher t on c.teacher_id = t.id and t.is_deleted = 0
-        left outer join subject s1 on c.subject_parent_id = s1.id and s1.is_deleted = 0
-        left outer join subject s2 on c.subject_id = s2.id and s2.is_deleted = 0
-        where c.is_deleted = 0
-        and c.id = #{id}
+        t.name AS teacherName,
+        s1.title AS subjectParentTitle,
+        s2.title AS subjectTitle
+        FROM
+        <include refid="tables" />
+        WHERE c.id = #{id}
     </select>
 
+    <select id="selectCourseVoById" resultType="com.youjian.ggkt.vo.vod.CourseVo">
+        SELECT
+        <include refid="columns" />
+        FROM
+        <include refid="tables" />
+        WHERE c.id = #{id}
+    </select>
+
+    <sql id="columns">
+        c.id,
+        c.title,
+        c.lesson_num AS lessonNum,
+        c.price,
+        c.cover,
+        c.buy_count AS buyCount,
+        c.view_count AS viewCount,
+        c.status,
+        c.publish_time AS publishTime,
+        c.teacher_id as teacherId,
+        t.name AS teacherName,
+        s1.title AS subjectParentTitle,
+        s2.title AS subjectTitle
+    </sql>
+
+    <sql id="tables">
+        course c
+        LEFT JOIN teacher t ON c.teacher_id = t.id
+        LEFT JOIN subject s1 ON c.subject_parent_id = s1.id
+        LEFT JOIN subject s2 ON c.subject_id = s2.id
+    </sql>
 </mapper>

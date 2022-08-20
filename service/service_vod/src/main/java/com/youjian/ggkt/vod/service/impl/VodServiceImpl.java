@@ -12,12 +12,40 @@ import com.tencentcloudapi.vod.v20180717.VodClient;
 import com.tencentcloudapi.vod.v20180717.models.DeleteMediaRequest;
 import com.tencentcloudapi.vod.v20180717.models.DeleteMediaResponse;
 import com.youjian.ggkt.exception.GgktException;
+import com.youjian.ggkt.model.vod.Video;
+import com.youjian.ggkt.vod.service.VideoService;
 import com.youjian.ggkt.vod.service.VodService;
 import com.youjian.ggkt.vod.utils.ConstantPropertiesUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class VodServiceImpl implements VodService {
+
+    @Value("${tencent.video.appid}")
+    private String appId;
+
+    @Autowired
+    private VideoService videoService;
+
+    //点播视频播放接口
+    @Override
+    public Map<String, Object> getPlayAuth(Long courseId, Long videoId) {
+        //根据小节id获取小节对象，获取腾讯云视频id
+        Video video = videoService.getById(videoId);
+        if(video == null) {
+            throw new GgktException(20001,"小节信息不存在");
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("videoSourceId",video.getVideoSourceId());
+        map.put("appId",appId);
+        return map;
+    }
 
     @Override
     public String uploadVideo() {

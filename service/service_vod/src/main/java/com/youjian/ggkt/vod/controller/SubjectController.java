@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Api(tags = "课程科目")
 @RestController
-@RequestMapping("/vod/subject")
+@RequestMapping("/admin/vod/subject")
 public class SubjectController {
     @Autowired
     private SubjectService subjectService;

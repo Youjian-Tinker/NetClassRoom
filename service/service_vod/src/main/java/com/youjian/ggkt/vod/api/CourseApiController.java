@@ -63,4 +63,14 @@ public class CourseApiController {
         List<Course> list = courseService.list(queryWrapper);
         return list;
     }
+
+
+    @ApiOperation("根据ID查询课程")
+    @GetMapping("inner/getById/{courseId}")
+    public Course getById(
+            @ApiParam(value = "课程ID", required = true)
+            @PathVariable Long courseId){
+        return courseService.getById(courseId);
+    }
+
 }

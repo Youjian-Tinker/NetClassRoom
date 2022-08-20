@@ -14,4 +14,8 @@ public interface CourseFeignClient {
     @ApiOperation("根据关键字查询课程")
     @GetMapping("admin/api/vod/course/inner/findByKeyword/{keyword}")
     List<Course> findByKeyword(@PathVariable String keyword);
+
+    @ApiOperation("根据ID查询课程")
+    @GetMapping("/api/vod/course/inner/getById/{courseId}")
+    Course getById(@PathVariable Long courseId);
 }

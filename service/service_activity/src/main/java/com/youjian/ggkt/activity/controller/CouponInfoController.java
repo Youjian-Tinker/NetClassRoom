@@ -24,7 +24,7 @@ import java.util.List;
  * @since 2022-08-02
  */
 @RestController
-@RequestMapping("/activity/couponInfo")
+@RequestMapping("/admin/activity/couponInfo")
 public class CouponInfoController {
 
     @Autowired

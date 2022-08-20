@@ -19,4 +19,6 @@ import com.youjian.ggkt.vo.activity.CouponUseQueryVo;
 public interface CouponInfoService extends IService<CouponInfo> {
     //获取已使用优惠券列表
     IPage<CouponUse> selectCouponUsePage(Page<CouponUse> pageParam, CouponUseQueryVo couponUseQueryVo);
+
+    void updateCouponInfoUseStatus(Long couponUseId, Long orderId);
 }

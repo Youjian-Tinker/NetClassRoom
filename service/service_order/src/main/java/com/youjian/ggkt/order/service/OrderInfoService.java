@@ -3,6 +3,7 @@ package com.youjian.ggkt.order.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.youjian.ggkt.model.order.OrderInfo;
+import com.youjian.ggkt.vo.order.OrderFormVo;
 import com.youjian.ggkt.vo.order.OrderInfoQueryVo;
 
 import java.util.Map;
@@ -18,4 +19,6 @@ import java.util.Map;
 public interface OrderInfoService extends IService<OrderInfo> {
 
     Map<String, Object> selectOrderInfoPage(Page<OrderInfo> pageParam, OrderInfoQueryVo orderInfoQueryVo);
+
+    Long submitOrder(OrderFormVo orderFormVo);
 }

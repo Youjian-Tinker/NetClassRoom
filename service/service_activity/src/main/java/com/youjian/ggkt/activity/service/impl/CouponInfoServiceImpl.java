@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,5 +67,15 @@ public class CouponInfoServiceImpl extends ServiceImpl<CouponInfoMapper, CouponI
                 couponUse.getParam().put("phone", userInfo.getPhone());
             }
         }
+    }
+
+    @Override
+    public void updateCouponInfoUseStatus(Long couponUseId, Long orderId) {
+        CouponUse couponUse = new CouponUse();
+        couponUse.setId(couponUseId);
+        couponUse.setOrderId(orderId);
+        couponUse.setCouponStatus("1");
+        couponUse.setUsingTime(new Date());
+        couponUseService.updateById(couponUse);
     }
 }
